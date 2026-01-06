@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask To-Do App</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        table { width: 60%; border-collapse: collapse; }
+        th, td { padding: 10px; border: 1px solid #ccc; }
+        th { background-color: #f2f2f2; }
+        .done { color: green; }
+    </style>
+</head>
+<body>
+
+<h2>📝 Flask SQLite3 To-Do App</h2>
+
+<form action="/add" method="post">
+    <input type="text" name="task" placeholder="Enter new task" required>
+    <button type="submit">Add Task</button>
+</form>
+
+<br>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Task</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for task in tasks %}
+    <tr>
+        <td>{{ task.id }}</td>
+        <td>{{ task.task }}</td>
+        <td class="{% if task.status=='Completed' %}done{% endif %}">
+            {{ task.status }}
+        </td>
+        <td>
+            <a href="/complete/{{ task.id }}">✔ Complete</a> |
+            <a href="/delete/{{ task.id }}">❌ Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
